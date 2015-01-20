@@ -1,0 +1,285 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                             ;
+;  sin(x) demosembly snippet  ;
+;                             ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; This snippet is a drop-in
+; sin(x) function. It uses a
+; lerped quarter lookup table
+; approach to get reasonalble
+; results.
+;
+; In this snippet, input and
+; output values are scaled
+; such that PI == 4096, i.e.
+; sin(4096) == 0 and
+; sin(2048) == 1303.
+;                            ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                            ;
+; INPUT:  x ($7)
+; RETURN: sine wave from
+;         -1303 to 1303 ($7)
+;
+; This routine will clobber
+; registers $8-$14.
+;                            ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; $7:  x (input), ret
+; $8:  i 
+; $9:  a
+; $10: b
+; $11: mixer
+; $12: quadrant
+; $13: scratch register
+; $14: 1
+; $7:  ret 
+
+
+ldi $14, 1
+
+; i = (x & 0x7FF) >> 7
+ldi $13, 0x7FF
+and $8, $7, $13
+srl $8, $8, 7
+
+; quadrant = (x & 0x1FFF) >> 11
+ldi $13, 0x1FFF
+and $12, $7, $13
+srl $12, $12, 11
+
+
+; $mask = quadrant in [1, 3]
+ldi $13, 1
+seq $mask, $12, $13
+ldi $13, 3
+seq $13, $12, $13
+or $mask, $mask, $13
+
+; i = $mask ? 15 - i : i
+ldi $13, 15
+sub $mask, $14, $mask
+? sub $8, $13, $8
+
+; a = 0
+add $9, $0, $0
+
+; a = i == 1 ? 127 : a
+ldi $13, 1
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 127
+
+; a = i == 2 ? 254 : a
+ldi $13, 2
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 254
+
+; a = i == 3 ? 378 : a
+ldi $13, 3
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 378
+
+; a = i == 4 ? 498 : a
+ldi $13, 4
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 498
+
+; a = i == 5 ? 614 : a
+ldi $13, 5
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 614
+
+; a = i == 6 ? 724 : a
+ldi $13, 6
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 724
+
+; a = i == 7 ? 827 : a
+ldi $13, 7
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 827
+
+; a = i == 8 ? 921 : a
+ldi $13, 8
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 921
+
+; a = i == 9 ? 1007 : a
+ldi $13, 9
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1007
+
+; a = i == 10 ? 1084 : a
+ldi $13, 10
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1084
+
+; a = i == 11 ? 1149 : a
+ldi $13, 11
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1149
+
+; a = i == 12 ? 1204 : a
+ldi $13, 12
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1204
+
+; a = i == 13 ? 1247 : a
+ldi $13, 13
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1247
+
+; a = i == 14 ? 1278 : a
+ldi $13, 14
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1278
+
+; a = i == 15 ? 1300 : a
+ldi $13, 15
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $9, 1300
+
+; b = 127
+ldi $10, 127
+
+; b = i == 1 ? 254 : b
+ldi $13, 1
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 254
+
+; b = i == 2 ? 378 : b
+ldi $13, 2
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 378
+
+; b = i == 3 ? 498 : b
+ldi $13, 3
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 498
+
+; b = i == 4 ? 614 : b
+ldi $13, 4
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 614
+
+; b = i == 5 ? 724 : b
+ldi $13, 5
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 724
+
+; b = i == 6 ? 827 : b
+ldi $13, 6
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 827
+
+; b = i == 7 ? 921 : b
+ldi $13, 7
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 921
+
+; b = i == 8 ? 1007 : b
+ldi $13, 8
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1007
+
+; b = i == 9 ? 1084 : b
+ldi $13, 9
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1084
+
+; b = i == 10 ? 1149 : b
+ldi $13, 10
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1149
+
+; b = i == 11 ? 1204 : b
+ldi $13, 11
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1204
+
+; b = i == 12 ? 1247 : b
+ldi $13, 12
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1247
+
+; b = i == 13 ? 1278 : b
+ldi $13, 13
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1278
+
+; b = i == 14 ? 1300 : b
+ldi $13, 14
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1300
+
+; b = i == 15 ? 1303 : b
+ldi $13, 15
+seq $mask, $8, $13
+sub $mask, $14, $mask
+? ldi $10, 1303
+
+; mixer = x & 0x7F
+ldi $13, 0x7F
+and $11, $7, $13
+
+; mixer = quadrant in [1, 3] ? 128 - mixer : mixer
+ldi $13, 1
+seq $mask, $12, $13
+ldi $13, 3
+seq $13, $12, $13
+or $mask, $mask, $13
+ldi $13, 128
+sub $mask, $14, $mask
+? sub $11, $13, $11
+
+; ret = (b * mixer) >> 7 + (a * (0x7F - mixer)) >> 7
+mul $7, $10, $11
+srl $7, $7, 7
+ldi $13, 0x7F
+sub $13, $13, $11
+mul $13, $9, $13
+srl $13, $13, 7
+add $7, $7, $13
+
+; ret = quadrant in [2, 3] ? -ret : ret
+ldi $13, 2
+seq $mask, $12, $13
+ldi $13, 3
+seq $13, $12, $13
+or $mask, $mask, $13
+sub $mask, $14, $mask
+? sub $7, $0, $7
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
