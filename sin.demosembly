@@ -67,187 +67,128 @@ sub $mask, $14, $mask
 ; a = 0
 add $9, $0, $0
 
-; a = i == 1 ? 127 : a
-ldi $13, 1
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 127
-
-; a = i == 2 ? 254 : a
-ldi $13, 2
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 254
-
-; a = i == 3 ? 378 : a
-ldi $13, 3
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 378
-
-; a = i == 4 ? 498 : a
-ldi $13, 4
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 498
-
-; a = i == 5 ? 614 : a
-ldi $13, 5
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 614
-
-; a = i == 6 ? 724 : a
-ldi $13, 6
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 724
-
-; a = i == 7 ? 827 : a
-ldi $13, 7
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 827
-
-; a = i == 8 ? 921 : a
-ldi $13, 8
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 921
-
-; a = i == 9 ? 1007 : a
-ldi $13, 9
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1007
-
-; a = i == 10 ? 1084 : a
-ldi $13, 10
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1084
-
-; a = i == 11 ? 1149 : a
-ldi $13, 11
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1149
-
-; a = i == 12 ? 1204 : a
-ldi $13, 12
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1204
-
-; a = i == 13 ? 1247 : a
-ldi $13, 13
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1247
-
-; a = i == 14 ? 1278 : a
-ldi $13, 14
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1278
-
-; a = i == 15 ? 1300 : a
-ldi $13, 15
-seq $mask, $8, $13
-sub $mask, $14, $mask
-? ldi $9, 1300
-
 ; b = 127
 ldi $10, 127
 
+
+; a = i == 1 ? 127 : a
 ; b = i == 1 ? 254 : b
 ldi $13, 1
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 127
 ? ldi $10, 254
 
+; a = i == 2 ? 254 : a
 ; b = i == 2 ? 378 : b
 ldi $13, 2
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 254
 ? ldi $10, 378
 
+; a = i == 3 ? 378 : a
 ; b = i == 3 ? 498 : b
 ldi $13, 3
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 378
 ? ldi $10, 498
 
+; a = i == 4 ? 498 : a
 ; b = i == 4 ? 614 : b
 ldi $13, 4
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 498
 ? ldi $10, 614
 
+; a = i == 5 ? 614 : a
 ; b = i == 5 ? 724 : b
 ldi $13, 5
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 614
 ? ldi $10, 724
 
+; a = i == 6 ? 724 : a
 ; b = i == 6 ? 827 : b
 ldi $13, 6
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 724
 ? ldi $10, 827
 
+; a = i == 7 ? 827 : a
 ; b = i == 7 ? 921 : b
 ldi $13, 7
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 827
 ? ldi $10, 921
 
+; a = i == 8 ? 921 : a
 ; b = i == 8 ? 1007 : b
 ldi $13, 8
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 921
 ? ldi $10, 1007
 
+; a = i == 9 ? 1007 : a
 ; b = i == 9 ? 1084 : b
 ldi $13, 9
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1007
 ? ldi $10, 1084
 
+; a = i == 10 ? 1084 : a
 ; b = i == 10 ? 1149 : b
 ldi $13, 10
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1084
 ? ldi $10, 1149
 
+; a = i == 11 ? 1149 : a
 ; b = i == 11 ? 1204 : b
 ldi $13, 11
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1149
 ? ldi $10, 1204
 
+; a = i == 12 ? 1204 : a
 ; b = i == 12 ? 1247 : b
 ldi $13, 12
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1204
 ? ldi $10, 1247
 
+; a = i == 13 ? 1247 : a
 ; b = i == 13 ? 1278 : b
 ldi $13, 13
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1247
 ? ldi $10, 1278
 
+; a = i == 14 ? 1278 : a
 ; b = i == 14 ? 1300 : b
 ldi $13, 14
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1278
 ? ldi $10, 1300
 
+; a = i == 15 ? 1300 : a
 ; b = i == 15 ? 1303 : b
 ldi $13, 15
 seq $mask, $8, $13
 sub $mask, $14, $mask
+? ldi $9, 1300
 ? ldi $10, 1303
 
 ; mixer = x & 0x7F
