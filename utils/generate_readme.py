@@ -31,7 +31,7 @@ Here are some automatically generated statistics:
 '''
     for filename in glob.glob('snippets/*.demosembly'):
         statistics = get_statistics_for_file(filename)
-        print h(2, filename)
+        print h(2, filename[9:])
         print tr('Instruction count', statistics['instruction_count'])
 
 

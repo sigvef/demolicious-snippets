@@ -6,5 +6,5 @@ making them useful for application writing.
 
 Here are some automatically generated statistics:
 
-## snippets/sin.demosembly
+## sin.demosembly
 | Instruction count | 116 |
