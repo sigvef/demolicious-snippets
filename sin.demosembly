@@ -7,7 +7,7 @@
 ; This snippet is a drop-in
 ; sin(x) function. It uses a
 ; lerped quarter lookup table
-; approach to get reasonalble
+; approach to get reasonable
 ; results.
 ;
 ; In this snippet, input and
