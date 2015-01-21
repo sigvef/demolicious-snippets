@@ -7,4 +7,4 @@ making them useful for application writing.
 Here are some automatically generated statistics:
 
 ## sin.demosembly
-| Instruction count | 116 |
+| Instruction count | 117 |

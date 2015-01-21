@@ -23,23 +23,23 @@
 ;         -1303 to 1303 ($7)
 ;
 ; This routine will clobber
-; registers $8-$14.
+; registers $8-$13.
 ;                            ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ; $7:  x (input), ret
-; $8:  i 
+; $8:  i, then 1
 ; $9:  a
 ; $10: b
-; $11: mixer
+; $11: 1, then mixer
 ; $12: quadrant
 ; $13: scratch register
-; $14: 1
 ; $7:  ret 
 
 
-ldi $14, 1
+ldi $11, 1
+
 
 ; i = (x & 0x7FF) >> 7
 ldi $13, 0x7FF
@@ -61,7 +61,7 @@ or $mask, $mask, $13
 
 ; i = $mask ? 15 - i : i
 ldi $13, 15
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? sub $8, $13, $8
 
 ; a = 0
@@ -75,7 +75,7 @@ ldi $10, 127
 ; b = i == 1 ? 254 : b
 ldi $13, 1
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 127
 ? ldi $10, 254
 
@@ -83,7 +83,7 @@ sub $mask, $14, $mask
 ; b = i == 2 ? 378 : b
 ldi $13, 2
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 254
 ? ldi $10, 378
 
@@ -91,7 +91,7 @@ sub $mask, $14, $mask
 ; b = i == 3 ? 498 : b
 ldi $13, 3
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 378
 ? ldi $10, 498
 
@@ -99,7 +99,7 @@ sub $mask, $14, $mask
 ; b = i == 4 ? 614 : b
 ldi $13, 4
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 498
 ? ldi $10, 614
 
@@ -107,7 +107,7 @@ sub $mask, $14, $mask
 ; b = i == 5 ? 724 : b
 ldi $13, 5
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 614
 ? ldi $10, 724
 
@@ -115,7 +115,7 @@ sub $mask, $14, $mask
 ; b = i == 6 ? 827 : b
 ldi $13, 6
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 724
 ? ldi $10, 827
 
@@ -123,7 +123,7 @@ sub $mask, $14, $mask
 ; b = i == 7 ? 921 : b
 ldi $13, 7
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 827
 ? ldi $10, 921
 
@@ -131,7 +131,7 @@ sub $mask, $14, $mask
 ; b = i == 8 ? 1007 : b
 ldi $13, 8
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 921
 ? ldi $10, 1007
 
@@ -139,7 +139,7 @@ sub $mask, $14, $mask
 ; b = i == 9 ? 1084 : b
 ldi $13, 9
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1007
 ? ldi $10, 1084
 
@@ -147,7 +147,7 @@ sub $mask, $14, $mask
 ; b = i == 10 ? 1149 : b
 ldi $13, 10
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1084
 ? ldi $10, 1149
 
@@ -155,7 +155,7 @@ sub $mask, $14, $mask
 ; b = i == 11 ? 1204 : b
 ldi $13, 11
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1149
 ? ldi $10, 1204
 
@@ -163,7 +163,7 @@ sub $mask, $14, $mask
 ; b = i == 12 ? 1247 : b
 ldi $13, 12
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1204
 ? ldi $10, 1247
 
@@ -171,7 +171,7 @@ sub $mask, $14, $mask
 ; b = i == 13 ? 1278 : b
 ldi $13, 13
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1247
 ? ldi $10, 1278
 
@@ -179,7 +179,7 @@ sub $mask, $14, $mask
 ; b = i == 14 ? 1300 : b
 ldi $13, 14
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1278
 ? ldi $10, 1300
 
@@ -187,13 +187,23 @@ sub $mask, $14, $mask
 ; b = i == 15 ? 1303 : b
 ldi $13, 15
 seq $mask, $8, $13
-sub $mask, $14, $mask
+sub $mask, $11, $mask
 ? ldi $9, 1300
 ? ldi $10, 1303
+
+
+;; $11 changes from 1 to mixer here ;;
+
 
 ; mixer = x & 0x7F
 ldi $13, 0x7F
 and $11, $7, $13
+
+
+;; $8 changes from i to 1 here ;;
+
+ldi $8, 1
+
 
 ; mixer = quadrant in [1, 3] ? 128 - mixer : mixer
 ldi $13, 1
@@ -202,7 +212,7 @@ ldi $13, 3
 seq $13, $12, $13
 or $mask, $mask, $13
 ldi $13, 128
-sub $mask, $14, $mask
+sub $mask, $8, $mask
 ? sub $11, $13, $11
 
 ; ret = (b * mixer) >> 7 + (a * (0x7F - mixer)) >> 7
@@ -220,7 +230,7 @@ seq $mask, $12, $13
 ldi $13, 3
 seq $13, $12, $13
 or $mask, $mask, $13
-sub $mask, $14, $mask
+sub $mask, $8, $mask
 ? sub $7, $0, $7
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
