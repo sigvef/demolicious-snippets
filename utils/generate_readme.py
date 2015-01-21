@@ -29,7 +29,7 @@ making them useful for application writing.
 
 Here are some automatically generated statistics:
 '''
-    for filename in glob.glob('*.demosembly'):
+    for filename in glob.glob('snippets/*.demosembly'):
         statistics = get_statistics_for_file(filename)
         print h(2, filename)
         print tr('Instruction count', statistics['instruction_count'])
