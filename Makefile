@@ -1,2 +1,2 @@
-README.md: snippets/*.demosembly
+README.md: snippets/*.d
 	python utils/generate_readme.py > README.md
